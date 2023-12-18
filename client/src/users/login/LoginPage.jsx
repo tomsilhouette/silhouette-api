@@ -35,6 +35,7 @@ function LoginPage() {
     event.preventDefault();
 
     setLoginInProgress(true)
+    
     client
       .post('/login', loginFormData, false)
       .then((res) => {

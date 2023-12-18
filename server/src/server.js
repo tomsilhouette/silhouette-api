@@ -16,13 +16,6 @@ import { HTTP_URL, PORT } from './utils/config.js';
 const app = express();
 app.disable('x-powered-by');
 
-// Add middleware
-app.use(
-  cors({ 
-    origin: "*"
-  })
-);
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +34,10 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', {
     root: join(__dirname, 'views'),
   });
+});
+
+app.get('/test', (req, res) => {
+  res.json('youre great');
 });
 
 // For all unknown requests 404 page returns

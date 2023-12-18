@@ -68,12 +68,6 @@ const client = {
     return axios.post(url, data);
   },
 
-  postCredentials: (path, data) => {
-    const url = `${path}`;
-
-    return axios.post(url, data, { withCredentials: true });
-  },
-
   patch: (path, data, withToken = true) => {
     const url = `${host}${path}`;
     const token = localStorage.getItem(tokenKey);

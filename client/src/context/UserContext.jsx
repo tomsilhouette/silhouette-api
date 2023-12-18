@@ -17,27 +17,6 @@ const UserContextProvider = ({ children }) => {
 
   console.log('usercontext', user);
 
-  useEffect(() => {
-    const decodedUserData = LoggedInUser();
-
-    if (decodedUserData !== null) {
-      const userId = decodedUserData.id;
-      client
-        .get(`/users/user/userId/${userId}`)
-        .then((res) => {
-          setUser(res.data.data.user);
-        })
-        .catch((err) => {
-          console.error('Unable to retrieve user data', err);
-        });
-    }
-
-    const cookie = localStorage.getItem('CookiePolicy');
-
-    if (cookie) {
-      setToggleCookiePolicy(true);
-    }
-  }, []);
 
   return (
     <UserContext.Provider
