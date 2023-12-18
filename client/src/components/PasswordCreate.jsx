@@ -32,6 +32,8 @@ export async function createdPassword() {
     console.log('PASS STRING: ', passString);
     console.log('');
   }
-
+  // const hashedPass = sha1(passString);
+  // console.log('hashedPass: ', hashedPass);
+  
   return passString;
 }

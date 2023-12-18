@@ -4,6 +4,7 @@ import Navbar from '../../components/nav/Navbar';
 import client from '../../api/client';
 // Password
 import { createdPassword } from '../../components/PasswordCreate';
+import pako from 'pako';
 // Hashing
 const sha1 = require('js-sha1');
 
@@ -15,16 +16,15 @@ function TestPost() {
   const [requestData, setRequestData] = useState({
     authentication: {
       id: 'sos_api',
-      password: '', // This will initially be undefined
+      password: '189b393a6954abfdd53d451fcce9149554153a95', // This will initially be undefined
     },
     method: {
-      method_name: 'get_api_settings',
-      parameters: {},
+      parameters: { software_type: 'SS', software_version: '4.5.770WD' },
+      method_name: 'get_api_settings'
     },
   });
 
-  const jsonObject1 = {"authentication":{"id":"sos_api","password":"66667776366565613d21"},"method":{"method_name":"get_api_settings","parameters":{}}}
-  
+
   // Create password hashes
   useEffect(() => {
     const fetchData = async () => {
@@ -40,11 +40,12 @@ function TestPost() {
   const hashTheForm = () => {
     console.log('');
     console.log('HASHING THE DATA');
+
     let tempObj = requestData;
     console.log('tempObj (original form): ', tempObj);
 
     console.log('ADDING PASSWORD');
-    tempObj.authentication.password = password;
+    // tempObj.authentication.password = password;
 
     console.log('tempObj Password Update: ', tempObj);
 
@@ -58,16 +59,40 @@ function TestPost() {
   };
 
   // Send form
-  const sendFile = () => {
-    console.log('SENDING');
+  // const sendFile = () => {
+  //   console.log('SENDING', hashedForm);
 
-    client
-      .post('https://api.silhouettedesignstore.com/', postData)
+  //   client
+  //     .post('https://api.silhouettedesignstore.com/', hashedForm)
+  //     .then((res) => {
+  //       console.log('res', res);
+  //       console.log('res2', res.data);
+  //     })
+
+  //     .catch((err) => {
+  //       console.error('Unable to get response', err);
+  //     });
+  // };
+
+  const sendFile = () => {
+    console.log('SENDING', hashedForm);
+  
+    // Compress the JSON data
+    const compressedData = pako.deflate(JSON.stringify(requestData));
+  
+    // Create a Blob from the compressed data
+    const blob = new Blob([compressedData], { type: 'application/octet-stream' });
+  
+    // Create FormData and append the Blob
+    const formData = new FormData();
+    formData.append('file', blob, 'request.zlib');
+  
+    // Send the FormData
+    client.post('https://api.silhouettedesignstore.com/', formData)
       .then((res) => {
         console.log('res', res);
         console.log('res2', res.data);
       })
-
       .catch((err) => {
         console.error('Unable to get response', err);
       });
