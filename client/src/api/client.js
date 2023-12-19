@@ -17,20 +17,21 @@ const client = {
 
   getData: (path, data) => {
     // Create a FormData object for handling multipart/form-data
-  
+
     // Set the Content-Type header to multipart/form-da
     return axios.post(path);
   },
-  
+
   getData2: async (path, data) => {
     console.log('-- COMPRESSING DATA --');
-    
+
     // Convert your data to a JSON string
     const jsonData = JSON.stringify(data);
 
     // Convert the string to a Uint8Array
-    const uint8Data = new TextEncoder().encode(data);
-
+    const uint8Data = new TextEncoder().encode(jsonData);
+    
+    console.log('unit', uint8Data);
     // Compress the data using Pako
     const compressedData = pako.deflate(uint8Data);
 

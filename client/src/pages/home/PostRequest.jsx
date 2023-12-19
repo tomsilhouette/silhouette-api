@@ -1,57 +1,63 @@
 import React from 'react';
 import Navbar from '../../components/nav/Navbar';
+import { gzip, gunzip } from 'zlib';
+import { promisify } from 'util';
 
 function PostRequest() {
   const hashTheForm = () => {};
 
   const sendFile = () => {};
-const zlib = require('zlib');
-const { promisify } = require('util');
 
-// Promisify the zlib methods for easier use with async/await
-const gzip = promisify(zlib.gzip);
-const gunzip = promisify(zlib.gunzip);
+  // Promisify the zlib methods for easier use with async/await
+  const gzipAsync = promisify(gzip);
+  const gunzipAsync = promisify(gunzip);
 
-async function compressObject(obj) {
+  async function compressObject(obj) {
+    console.log('XXXXX');
+
     try {
-        // Convert the object to a JSON string
-        const jsonString = JSON.stringify(obj);
+      // Convert the object to a JSON string
+      const jsonString = JSON.stringify(obj);
+      console.log('jsonString', jsonString);
+      console.log('222222222222');
 
-        // Compress the JSON string
-        const compressed = await gzip(jsonString);
-
-        return compressed;
+      // Compress the JSON string
+      const compressed = await gzipAsync(jsonString);
+      console.log('XXcompressed', compressed.toString());
+      return compressed;
     } catch (err) {
-        console.error('Compression error:', err);
+      console.error('Compression error:', err);
     }
-}
+  }
 
-async function decompressObject(compressed) {
+  async function decompressObject(compressed) {
     try {
-        // Decompress the data
-        const decompressed = await gunzip(compressed);
+      // Decompress the data
+      const decompressed = await gunzipAsync(compressed);
+      console.log('YYYYY');
+      // Convert the decompressed data back to a JSON object
+      const obj = JSON.parse(decompressed.toString());
 
-        // Convert the decompressed data back to a JSON object
-        const obj = JSON.parse(decompressed.toString());
-
-        return obj;
+      return obj;
     } catch (err) {
-        console.error('Decompression error:', err);
+      console.error('Decompression error:', err);
     }
-}
+  }
 
-// Example usage
-(async () => {
+  // Example usage
+  (async () => {
+    console.log('1111111111111111');
     const myObject = { name: 'John', age: 30, city: 'New York' };
-    
+
     // Compress the object
     const compressed = await compressObject(myObject);
     console.log('Compressed:', compressed);
 
     // Decompress the object
-    const decompressedObject = await decompressObject(compressed);
-    console.log('Decompressed:', decompressedObject);
-})();
+    // const decompressedObject = await decompressObject(compressed);
+    // console.log('Decompressed:', decompressedObject);
+  })();
+
   return (
     <div className='grid main__bg font-poppins h-screen grid-rows-reg overflow-hidden max-h-screen'>
       <Navbar />

@@ -16,7 +16,7 @@ function TestPost() {
   const [requestData, setRequestData] = useState({
     authentication: {
       id: 'sos_api',
-      password: '189b393a6954abfdd53d451fcce9149554153a95', // This will initially be undefined
+      password: '189b393a6954abfdd53d451fcce9149554153a95', // Hashed password
     },
     method: {
       parameters: { software_type: 'SS', software_version: '4.5.770WD' },
@@ -58,22 +58,6 @@ function TestPost() {
     setHashedForm(hashedJSON);
   };
 
-  // Send form
-  // const sendFile = () => {
-  //   console.log('SENDING', hashedForm);
-
-  //   client
-  //     .post('https://api.silhouettedesignstore.com/', hashedForm)
-  //     .then((res) => {
-  //       console.log('res', res);
-  //       console.log('res2', res.data);
-  //     })
-
-  //     .catch((err) => {
-  //       console.error('Unable to get response', err);
-  //     });
-  // };
-
   const sendFile = () => {
     console.log('SENDING', hashedForm);
   
@@ -88,7 +72,8 @@ function TestPost() {
     formData.append('file', blob, 'request.zlib');
   
     // Send the FormData
-    client.post('https://api.silhouettedesignstore.com/', formData)
+    // client.post('https://api.silhouettedesignstore.com/', formData)
+    client.post('https://api.silhouettedesignstore.com/', requestData)
       .then((res) => {
         console.log('res', res);
         console.log('res2', res.data);
