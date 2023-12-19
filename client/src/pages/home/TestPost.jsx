@@ -61,19 +61,25 @@ function TestPost() {
   const sendFile = () => {
     console.log('SENDING', hashedForm);
   
+    let newObj = requestData
+
+    newObj.authentication.password = hashedForm
+
+    console.log('NEW OBJECT', newObj);
+
     // Compress the JSON data
-    const compressedData = pako.deflate(JSON.stringify(requestData));
+    // const compressedData = pako.deflate(JSON.stringify(requestData));
   
-    // Create a Blob from the compressed data
-    const blob = new Blob([compressedData], { type: 'application/octet-stream' });
+    // // Create a Blob from the compressed data
+    // const blob = new Blob([compressedData], { type: 'application/octet-stream' });
   
-    // Create FormData and append the Blob
-    const formData = new FormData();
-    formData.append('file', blob, 'request.zlib');
+    // // Create FormData and append the Blob
+    // const formData = new FormData();
+    // formData.append('file', blob, 'request.zlib');
   
     // Send the FormData
-    // client.post('https://api.silhouettedesignstore.com/', formData)
-    client.post('https://api.silhouettedesignstore.com/', requestData)
+    // client.post('https://api.silhouettedesignstore.com/', formData) requestData
+    client.post('https://api.silhouettedesignstore.com/', newObj)
       .then((res) => {
         console.log('res', res);
         console.log('res2', res.data);
