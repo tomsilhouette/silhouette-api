@@ -16,7 +16,7 @@ function TestPost() {
   const [requestData, setRequestData] = useState({
     authentication: {
       id: 'sos_api',
-      password: '189b393a6954abfdd53d451fcce9149554153a95', // Hashed password
+      password: '', // Hashed password
     },
     method: {
       parameters: { software_type: 'SS', software_version: '4.5.770WD' },
@@ -45,7 +45,7 @@ function TestPost() {
     console.log('tempObj (original form): ', tempObj);
 
     console.log('ADDING PASSWORD');
-    // tempObj.authentication.password = password;
+    tempObj.authentication.password = password;
 
     console.log('tempObj Password Update: ', tempObj);
 
