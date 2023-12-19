@@ -1,4 +1,6 @@
+import { Buffer } from 'buffer';
 const sha1 = require('js-sha1');
+const crypto = require('crypto');
 
 export async function createdPassword() {
   const slices = [
@@ -20,20 +22,18 @@ export async function createdPassword() {
     console.log('SLICE: ', slice);
 
     // Hash the bytes
-    const hash = sha1(slice);
-    console.log('HASHED SLICE: ', hash);
-
-    // Has the slice
-    let hashChars = hash.slice(0, 2);
-    console.log('CHARS: ', hashChars);
-
+    const sha = crypto.createHash('sha1');
+    const hash = sha.update(slice, 'ascii').digest().subarray(0, 2);
     // add letters to string
-    passString = passString + hashChars;
+
+    console.log('HASH: ', hash);
+
+    const tidbit = hash.toString('ascii');
+    console.log('tidbit: ', tidbit);
+
+    passString += tidbit;
     console.log('PASS STRING: ', passString);
     console.log('');
   }
-  const hashedPass = sha1(passString);
-  console.log('hashedPass: ', hashedPass);
-  
   return passString;
 }

@@ -22,7 +22,7 @@ function PostRequest() {
       console.log('222222222222');
 
       // Compress the JSON string
-      const compressed = await gzipAsync(jsonString);
+      const compressed = await gzipAsync("6661e5fff96652fd39cb697cb0c1fd5330e2d871");
       console.log('XXcompressed', compressed.toString());
       return compressed;
     } catch (err) {

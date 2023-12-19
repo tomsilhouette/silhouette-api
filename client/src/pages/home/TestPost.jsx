@@ -6,7 +6,7 @@ import client from '../../api/client';
 import { createdPassword } from '../../components/PasswordCreate';
 import pako from 'pako';
 // Hashing
-const sha1 = require('js-sha1');
+const crypto = require('crypto');
 
 function TestPost() {
   const [password, setPassword] = useState('');
@@ -20,7 +20,7 @@ function TestPost() {
     },
     method: {
       parameters: { software_type: 'SS', software_version: '4.5.770WD' },
-      method_name: 'get_api_settings'
+      method_name: 'get_machines_list'
     },
   });
 
@@ -52,7 +52,7 @@ function TestPost() {
     const requestDataJSON = JSON.stringify(tempObj);
     console.log('JSON REQUEST: ', requestDataJSON);
 
-    const hashedJSON = sha1(requestDataJSON);
+    const hashedJSON = crypto.createHash('sha1').update(requestDataJSON).digest('hex');
     console.log('HASHED JSON: ', hashedJSON);
 
     setHashedForm(hashedJSON);
@@ -66,7 +66,7 @@ function TestPost() {
     newObj.authentication.password = hashedForm
 
     console.log('NEW OBJECT', newObj);
-
+    
     // Compress the JSON data
     // const compressedData = pako.deflate(JSON.stringify(requestData));
   
@@ -78,8 +78,8 @@ function TestPost() {
     // formData.append('file', blob, 'request.zlib');
   
     // Send the FormData
-    // client.post('https://api.silhouettedesignstore.com/', formData) requestData
-    client.post('https://api.silhouettedesignstore.com/', newObj)
+    // client.post('https://api.silhouettedesignstore.com/', formData)
+    client.post('https://api.silhouettedesignstore.com/', requestData)
       .then((res) => {
         console.log('res', res);
         console.log('res2', res.data);

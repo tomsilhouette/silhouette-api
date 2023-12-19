@@ -300,6 +300,7 @@ module.exports = function (webpackEnv) {
         assert: require.resolve('assert/'),
         buffer: require.resolve('buffer/'),
         stream: require.resolve('stream-browserify'),
+        crypto: require.resolve('crypto-browserify'),
       },
 
       // This allows you to set a fallback for where webpack should look for modules.
