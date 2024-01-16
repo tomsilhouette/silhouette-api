@@ -11,8 +11,7 @@ import Post2 from './pages/home/Post2';
 function App() {
   return (
     <Routes>
-      <Route path='/' index element={<HomePage />} />
-      <Route path='/t' index element={<TestPost />} />
+      <Route path='/' index element={<TestPost />} />
       <Route path='/post' index element={<PostRequest />} />
       <Route path='/post2' index element={<Post2 />} />
       <Route path='/login' element={<LoginPage />} />
