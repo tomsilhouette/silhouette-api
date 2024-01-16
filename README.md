@@ -25,14 +25,24 @@ Backend: Express, Prisma, JavaScript
 ## Run this project locally
 
 1. Fork this repository and clone the fork to your machine.
-2. Navigate to client and server files and run
-3. `npm install`
-4. `npm start`
+2. Navigate to client and server files and run 
+3. `cd client`
+4. `npm ci`
+5. `npm start`
+6. `cd ..`
+7. `cd server`
+8. `npm ci`
+9. `npm start`
+
+Test with no security
+
+Start => Run => chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
+
+Then open the localhost url in this browser 
+
+Press hash then send to test
 
 ## Testing
-
-API tests run through Insomnia testing suit.
-Check server dir for test files.
 
 ## Error
 
