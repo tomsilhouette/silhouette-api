@@ -37,6 +37,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
+  let data = req.body
+  console.log('data', data);
+  res.json('youre great');
+});
+
+app.post('/test2', (req, res) => {
+  console.log('req', req);
+  const data = req.body
+  console.log('data', data);
   res.json('youre great');
 });
 
