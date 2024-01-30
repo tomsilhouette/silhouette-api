@@ -12,6 +12,7 @@ import eventRouter from './routes/events.js';
 import designRouter from './routes/designs.js';
 // Env
 import { HTTP_URL, PORT } from './utils/config.js';
+import { sendDataResponse } from './utils/responses.js';
 
 const app = express();
 app.disable('x-powered-by');
@@ -46,7 +47,12 @@ app.post('/test2', (req, res) => {
   console.log('req', req);
   const data = req.body
   console.log('data', data);
-  res.json('youre great');
+
+  const resData = {
+    branches: 'Broken branches'
+  }
+
+    return sendDataResponse(res, 200, { data: resData });
 });
 
 // For all unknown requests 404 page returns
