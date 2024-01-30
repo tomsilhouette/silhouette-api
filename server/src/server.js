@@ -44,15 +44,14 @@ app.get('/test', (req, res) => {
 });
 
 app.post('/test2', (req, res) => {
-  console.log('req', req);
   const data = req.body
   console.log('data', data);
 
   const resData = {
     branches: 'Broken branches'
-  }
+  } 
 
-    return sendDataResponse(res, 200, { data: resData });
+    return sendDataResponse(res, 200, { silhouette: resData });
 });
 
 // For all unknown requests 404 page returns
